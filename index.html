@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!--Include Bootstrap’s JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    <!-- Custom JS for this template -->
+    <script src="js/copyText.js"></script>
+    <!--Include Latex (optional)-->
+    <!--<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>-->
+    <!--<script type="text/x-mathjax-config">-->
+    <!--    MathJax.Hub.Config({-->
+    <!--        tex2jax: {inlineMath: [['$', '$']]},-->
+    <!--        messageStyle: "none"-->
+    <!--    });-->
+    <!--</script>-->
+
+    <!--Include the icon fonts stylesheet-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!--Include Bootstrap’s CSS-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+          crossorigin="anonymous">
+    <!--Local Icon-->
+    <link rel="stylesheet" href="icons/style.css">
+    <!--Local Fonts-->
+    <link rel="stylesheet" href="fonts/avenir-next/stylesheet.css">
+    <link rel="stylesheet" href="fonts/segoe-print/stylesheet.css">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Website Title -->
+    <title>PromptEnhancer: A Simple Approach to Enhance Text-to-Image Models via Chain-of-Thought Prompt Rewriting</title>
+    <!-- The description that appears when you share the link -->
+    <!-- <meta property="og:description" content="PromptEnhancer, CoT Rewriter, prompt rewriting, chain-of-thought, text-to-image"/> -->
+    <meta property="og:description" content="PromptEnhancer: Rewrite and optimize your text prompts with Chain-of-Thought for better text-to-image generation results. Experience intelligent prompt enhancement now!"/>
+    <!-- Used to display page descriptions in search results -->
+    <meta name="description" content="PromptEnhancer, CoT Rewriter, prompt rewriting, chain-of-thought, text-to-image">
+    <!-- favicon -->
+    <link rel="icon" href="assets/hunyuan-color.svg" type="image/svg+xml">
+</head>
+
+<body>
+<header class="container">
+    <hr>
+    <!-- Paper Title -->
+    <div class="container text-center">
+        <span class="title-font x-gradient-font">PromptEnhancer: A Simple Approach to Enhance Text-to-Image Models via Chain-of-Thought Prompt Rewriting</span>
+    </div>
+    <hr>
+    <!-- author list -->
+    <div class="container author text-center">
+        <!-- authors -->
+        <div class="row gy-2">
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://scholar.google.com/citations?hl=en&view_op=list_works&gmla=AH8HC4z9rmDHYjp5o28xKk8U4ddD_n7BuMnk8UZFP-jygFBtHUSz6pf-5FP32B_yKMpRU9VpDY3iT8eM0zORHA&user=Hy12lcEAAAAJ">Linqing Wang</a>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://ximinng.github.io/">Ximing Xing</a>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://scholar.google.com/citations?user=Plo8ZSYAAAAJ&hl=en">Yiji Cheng</a>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                Zhiyuan Zhao
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://scholar.google.com/citations?user=WF5DPWkAAAAJ&hl=en">Jiale Tao</a>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://github.com/wangqixun">QiXun Wang</a>
+            </div>
+        </div>
+        <div class="row gy-2" style="margin-top: -0.5rem;">
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://scholar.google.com/citations?user=8CfyOtQAAAAJ&hl=en">Ruihuang Li</a>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                Xin Li
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://scholar.google.com/citations?user=sbCKwnYAAAAJ&hl=en">Mingrui Wu</a>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                Xinchi Deng
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://scholar.google.com/citations?user=VXQV5xwAAAAJ&hl=en">Chunyu Wang</a><sup>†</sup>
+            </div>
+            <div class="col-12 col-lg-2 col-md-4 col-sm-6">
+                <a class="link" href="https://luqinglin.weebly.com/">Qinglin Lu</a><sup>*</sup>
+            </div>
+        </div>
+        <!-- author organization -->
+        <div class="row mt-3">
+            <div class="col-12">
+                Tencent Hunyuan
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12">
+                <small class="text-muted">
+                    <sup>†</sup><strong>Project Lead:</strong> Chunyu Wang &nbsp;&nbsp;
+                    <sup>*</sup><strong>Corresponding Author:</strong> Qinglin Lu
+                </small>
+            </div>
+        </div>
+    </div>
+    <!-- paper status -->
+    <!-- <div class="text-center" style="margin-top: 20px">
+        <h3>Technical Report</h3>
+    </div> -->
+    <!-- links -->
+    <div class="text-center">
+        <div class="row justify-content-md-center">
+            <div id="links">
+                <div class="col col-lg-2">
+                    <a id="paper" href="#">Tech Report</a>
+                </div>
+                <!-- <div class="col col-lg-2"> -->
+                    <!-- <a id="arxiv" href="#">Arxiv</a> -->
+                <!-- </div> -->
+                <div class="col col-lg-2">
+                    <a id="code" href="https://github.com/Hunyuan-PromptEnhancer/PromptEnhancer">Code</a>
+                </div>
+                <div class="col col-lg-2">
+                    <a id="demo" href="https://huggingface.co/tencent/HunyuanImage-2.1/tree/main/reprompt">Model</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <!-- teaser -->
+    <div class="text-center">
+        <figure class="figure">
+            <img src="assets/img/teaser-1.png" class="img-thumbnail figure-img img-fluid rounded"
+                 alt="beautiful teaser">
+            <figcaption class="figure-caption">
+                <b>PromptEnhancer enables high-fidelity and stylistically diverse image generation from user prompts.</b> 
+                Using HunyuanImage 2.1 as the base T2I model, our method demonstrates its versatility across various domains, including photorealism, digital art, abstract geometry, and multilingual text-in-image generation. 
+                The examples showcase how minimal user inputs are transformed into rich, detailed prompts that yield high-quality visual outputs, bridging the gap between user intent and model execution.
+            </figcaption>
+        </figure>
+    </div>
+
+</header>
+<br>
+
+<main class="container">
+    <!-- Abstract -->
+    <div class="card border-0">
+        <div class="card-body x-gradient-block">
+            <h2 class="card-title text-center card-title-margin">Abstract</h2>
+            <p class="card-text">
+                Recent advancements in text-to-image (T2I) diffusion models have demonstrated
+                remarkable capabilities in generating high-fidelity images. However, these models
+                often struggle to faithfully render complex user prompts, particularly in aspects
+                like attribute binding, negation, and compositional relationships. This leads to a
+                significant mismatch between user intent and the generated output. To address
+                this challenge, we introduce <b>PromptEnhancer</b>, a novel and universal prompt
+                rewriting framework that enhances any pretrained T2I model without requiring
+                modifications to its weights. Unlike prior methods that rely on model-specific fine-
+                tuning or implicit reward signals like CLIP scores, our framework decouples the
+                rewriter from the generator. We achieve this by training a Chain-of-Thought (CoT)
+                rewriter through reinforcement learning, guided by a dedicated reward model we
+                term the AlignEvaluator. The AlignEvaluator is trained to provide explicit and
+                fine-grained feedback based on a systematic taxonomy of 24 key points, which
+                are derived from a comprehensive analysis of common T2I failure modes. By
+                optimizing the CoT rewriter to maximize the reward from our AlignEvaluator,
+                our framework learns to generate prompts that are more precisely interpreted by
+                T2I models. Extensive experiments on the HunyuanImage 2.1 model demonstrate
+                that PromptEnhancer significantly improves image-text alignment across a wide
+                range of semantic and compositional challenges. Furthermore, we introduce a
+                new, high-quality human preference benchmark to facilitate future research in this
+                direction.
+            </p>
+        </div>
+    </div>
+    <br>
+
+    <!-- Online Demo -->
+    <!-- <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Online Demo</h2>
+            <hr class="body-hr"/>
+            <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo
+                dapibus sit amet. Suspendisse condimentum, libero vel tempus mattis, risus risus vulputate libero,
+                elementum fermentum mi neque vel nisl. Maecenas facilisis maximus dignissim. Curabitur mattis vulputate
+                dui, tincidunt varius libero luctus eu. Mauris mauris nulla, scelerisque eget massa id, tincidunt congue
+                felis. Sed convallis tempor ipsum rhoncus viverra. Pellentesque nulla orci, accumsan volutpat fringilla
+                vitae, maximus sit amet tortor. Aliquam ultricies odio ut volutpat scelerisque. Donec nisl nisl,
+                porttitor vitae pharetra quis, fringilla sed mi. Fusce pretium dolor ut aliquam consequat. Cras
+                volutpat, tellus accumsan mattis molestie, nisl lacus tempus massa, nec malesuada tortor leo vel quam.
+                Aliquam vel ex consectetur, vehicula leo nec, efficitur eros. Donec convallis non urna quis feugiat.
+            </p>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="./assets/online_demo.png" class="img-thumbnail figure-img img-fluid rounded"
+                         alt="online demo">
+                    <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <br> -->
+
+    <!-- Video 2 -- video in HTML -->
+    <!--    <div class="card">-->
+    <!--        <div class="card-body">-->
+    <!--            <h2 class="card-title card-title-margin">Video</h2>-->
+    <!--            <hr class="body-hr"/>-->
+    <!--            <div class="text-center">-->
+    <!--                <h4><u>Short presentation</u> (3min)</h4>-->
+    <!--                <div class="embed-responsive embed-responsive-16by9" style="text-align:center">-->
+    <!--                    <iframe class="embed-responsive-item text-center"-->
+    <!--                            src="https://www.youtube.com/embed/j20MBc1hWGQ"-->
+    <!--                            frameborder="0"-->
+    <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+    <!--                            style="width:80%; height: 650px; clip-path:inset(1px 1px);"-->
+    <!--                            allowfullscreen></iframe>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!--        </div>-->
+    <!--    </div>-->
+    <!--    <br>-->
+
+    <!-- Methodology -->
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Methodology</h2>
+            <hr class="body-hr"/>
+            <p class="card-text">
+                <b>Stage 1: SFT for Rewriter</b>
+                Initialization (Sec 2.2). The CoT Rewriter is first initialized through Supervised Fine-Tuning (SFT).
+                In this stage, the model learns to generate structured, chain-of-thought style responses by training
+                on (user prompt, reprompt) pairs using a standard next-token prediction loss. This provides a
+                strong starting point for the subsequent alignment phase.
+                <br>
+                <b>Stage 2: Policy Alignment with GRPO</b>
+                (Sec 2.3). The initialized rewriter is then refined using a reinforcement learning loop based on
+                Generative Reward-based Policy Optimization. 
+                For a given prompt, the CoT Rewriter generates multiple candidate reprompts. These are fed into a frozen T2I model
+                to produce images. The AlignEvaluator (Sec 2.4) then assesses each (image, prompt) pair and
+                provides a scalar reward.
+                This reward signal optimizes the rewriter's policy, steering it toward generating prompts that maximize the alignment between the image and the user's intent.
+            </p>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="assets/img/pipe-1.png" class="figure-img img-fluid rounded" alt="method">
+                    <figcaption class="figure-caption">
+                        An overview of the two-stage training framework for PromptEnhancer. 
+                        Our framework trains a universal Rewriter to enhance pretrained Text-to-Image (T2I) model without altering its weights. 
+                        This is achieved through a two-stage process guided by a specialized reward model.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Data Pipeline</h2>
+            <hr class="body-hr"/>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="assets/img/pipe_data-1.png" class="figure-img img-fluid rounded" alt="method">
+                    <figcaption class="figure-caption">
+                        <b>Overview of the construction and filtering pipeline for the Rewriter training data.</b> 
+                        The process involves user prompt simulation, Gemini-based generation, human-in-the-loop selection, and automated filtering to ensure high quality.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Data Analysis</h2>
+            <hr class="body-hr"/>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="assets/img/dataset_analyst-1.png" class="figure-img img-fluid rounded" alt="method">
+                    <figcaption class="figure-caption">
+                        <b>Distribution of evaluation dimensions in our dataset.</b>
+                        (a) The detailed percentage of each of the 24 fine-grained KeyPoints, sorted in descending order. 
+                        (b) The aggregated percentage for each of the six main Super-Categories, calculated by summing the percentages of their constituent KeyPoints. In both charts, colors represent the Super-Category, visually linking the detailed points to their broader classification.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Experimental Results</h2>
+            <hr class="body-hr"/>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="assets/img/abl_reprompt_ch-1.png" class="figure-img img-fluid rounded" alt="method">
+                    <figcaption class="figure-caption">
+                        <b>Qualitative Comparison of Prompt Rewriting.</b>
+                        This figure demonstrates the effectiveness of the PromptEnhancer prompt rewriter. Each comparison pair shows an image generated
+                        from a simple ”Raw Prompt” alongside an image generated from the detailed prompt created by
+                        PromptEnhancer. As illustrated, the enriched prompts, which add specific details like character
+                        identity (“Tom cat from Tom & Jerry”) and artistic style (“oil painting style, heavy brushstrokes”),
+                        guide the model to produce images with significantly greater detail, stylistic accuracy, and fidelity
+                        to the user’s intent.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Experimental Results</h2>
+            <hr class="body-hr"/>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="assets/img/abl_reprompt_en-1.png" class="figure-img img-fluid rounded" alt="method">
+                    <figcaption class="figure-caption">
+                        <b></b>End-to-End Workflow and Impact of PromptEnhancer.</b> This figure illustrates the
+                        complete process and impact of the PromptEnhancer framework across four different use cases.
+                        Each case is presented in a four-column format: (1) the initial user prompt, (2) the baseline image
+                        generated from that prompt, (3) the detailed, rewritten prompt from the CoT rewriter, and (4) the
+                        final, superior image generated from the rewritten prompt. This clearly shows the framework’s
+                        ability to handle complex scenes involving in-image text (e.g., “Drive the Future”) and specific
+                        layouts (e.g., an Instagram Reels cover), which are common challenges for text-to-image models.
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <br> -->
+
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Quantitative Evaluation</h2>
+            <hr class="body-hr"/>
+            <div class="text-center">
+                <figure class="figure">
+                    <img src="assets/img/abl_acc-1.png" class="figure-img img-fluid rounded" alt="method">
+                    <figcaption class="figure-caption">
+                        <b>Quantitative Evaluation of PromptEnhancer’s Impact on Prompt Following Accuracy.</b>
+                        The figure presents a comparative analysis of text-to-image generation accuracy with and without
+                        the PromptEnhancer framework across 24 distinct semantic categories. The left panel illustrates
+                        the percentage point (pp) improvement for each category, highlighting significant gains (blue) in
+                        areas like grammatical understanding and compositional reasoning, as well as regressions (red) in
+                        others. The right panel provides a direct comparison of the absolute accuracy scores, showing the
+                        performance of the baseline model (“w/o Ours”) versus the enhanced model (“w/ Our”)
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- Supplementary Material -->
+    <!-- <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Supplementary Material</h2>
+            <hr class="body-hr"/>
+            <p class="card-text">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ornare aliquet ipsum, ac tempus justo
+                dapibus sit amet.
+            </p>
+        </div>
+    </div>
+    <br> -->
+
+    <!-- Citation -->
+    <!-- <div class="card">
+        <div class="card-body">
+            <h2 class="card-title card-title-margin">Citation</h2>
+            <p id="bibtex" class="card-text" style="border: #1a1c20 1px">
+                <code> @article{promptenhancer2025,<br>
+                    &nbsp;&nbsp;title={PromptEnhancer: A Simple Approach to Enhance Text-to-Image Models via Chain-of-Thought Prompt Rewriting},<br>
+                    &nbsp;&nbsp;author={Linqing Wang and Ximing Xing and Yiji Cheng and Zhiyuan Zhao and Jiale Tao and QiXun Wang and Ruihuang Li and Xin Li and Mingrui Wu and Xinchi Deng and Chunyu Wang and Qinglin Lu},<br>
+                    &nbsp;&nbsp;booktitle={arXiv preprint},<br>
+                    &nbsp;&nbsp;year={2025}<br>
+                    }
+                </code>
+            </p>
+
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    onclick="copyText()">
+                Copy BibTex
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Bibtex</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="bibtex modal-body">
+                            Copy Success!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br> -->
+
+    <!-- Acknowledgements -->
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title card-title-margin">Acknowledgements</h4>
+            <p class="card-text">We would like to thank Kai Song, and ZhengKai Jiang for their valuable inputs and suggestions.</p>
+            <p class="card-text">
+                We are open-sourcing the PromptEnhancer-7B version, which includes a larger model, dataset, benchmark, and the reward model AlignEvaluator. These will be released progressively. Additionally, the PromptEnhancer series for multimodal applications, such as image-to-image, text-to-video, image-to-video, will be coming soon.
+                <br>
+                我们将开源PromptEnhancer-7B版本，涵盖更大参数的PromptEnhancer模型、数据集、基准测试以及奖励模型AlignEvaluator等内容，后续将逐步开源。同时，针对图生图、文生视频、图生视频等多模态应用的PromptEnhancer系列也将在不久后发布。
+            </p>
+        </div>
+    </div>
+    <br>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- left layout -->
+            <div class="col-12 col-md-6 text-md-start text-center">
+                <p class="footer-title mb-0">
+                    Hunyuan-PromptEnhancer
+                </p>
+            </div>
+            <!-- right layout -->
+            <div class="col-12 col-md-6 text-md-end text-center">
+                <p class="footer-text mb-0">
+                    This webpage template was originally made by
+                    <a href="https://github.com/ximinng/GithubPages-Template" class="link-primary text-decoration-none">ximingxing</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
