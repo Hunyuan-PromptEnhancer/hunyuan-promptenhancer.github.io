@@ -176,6 +176,36 @@ a.link:focus, a.link:hover {
     font-family: 'Avenir', sans-serif;
 }
 
+.author .row {
+    margin-bottom: 0.5rem;
+}
+
+.author .col-12 {
+    padding: 0.25rem 0.5rem;
+}
+
+.author a.link {
+    color: #6567C9;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.author a.link:hover {
+    color: #ff9349;
+    text-decoration: none;
+}
+
+.author strong {
+    color: #6567C9;
+    font-weight: 600;
+}
+
+.author sup {
+    font-size: 0.8em;
+    color: #666;
+    margin-left: 0.2em;
+}
+
 /*
  * Body
  */
