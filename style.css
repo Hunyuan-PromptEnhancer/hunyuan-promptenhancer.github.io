@@ -171,17 +171,38 @@ a.link:focus, a.link:hover {
  * Authors
  */
 .author {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 500;
     font-family: 'Avenir', sans-serif;
 }
 
-.author .row {
-    margin-bottom: 0.5rem;
+.authors-grid {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
 }
 
-.author .col-12 {
-    padding: 0.25rem 0.5rem;
+.author-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.0rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.author-name {
+    white-space: nowrap;
+    display: inline-block;
+}
+
+.author-affiliation {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
+.author-notes {
 }
 
 .author a.link {
@@ -204,6 +225,33 @@ a.link:focus, a.link:hover {
     font-size: 0.8em;
     color: #666;
     margin-left: 0.2em;
+}
+
+/* Responsive design for authors */
+@media (max-width: 768px) {
+    .author-row {
+        gap: 1rem;
+        justify-content: center;
+    }
+    
+    .author-name {
+        font-size: 16px;
+    }
+    
+    .author-affiliation {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .author-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .author-name {
+        font-size: 15px;
+    }
 }
 
 /*
