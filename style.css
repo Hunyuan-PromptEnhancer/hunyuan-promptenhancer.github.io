@@ -151,10 +151,15 @@ a.link:focus, a.link:hover {
 }
 
 #links #zhihu::before {
-    content: "知"; /* 使用知乎的"知"字作为图标 */
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: -3px;
+    content: "";
+    background-image: url("icons/extra/zhihu.svg");
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin-right: 8px;
 }
 
 #links #demo::before {
