@@ -151,8 +151,10 @@ a.link:focus, a.link:hover {
 }
 
 #links #video::before {
-    content: "\e003";
-    font-size: 20px;
+    content: "知"; /* 使用知乎的"知"字作为图标 */
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: -3px;
 }
 
 #links #demo::before {
