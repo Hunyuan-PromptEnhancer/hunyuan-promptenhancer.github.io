@@ -150,7 +150,7 @@ a.link:focus, a.link:hover {
     font-size: 20px;
 }
 
-#links #video::before {
+#links #zhihu::before {
     content: "知"; /* 使用知乎的"知"字作为图标 */
     font-size: 18px;
     font-weight: bold;
